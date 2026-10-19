@@ -1,124 +1,83 @@
 # TakeMeter
 
-> ### 👋 Start here
->
-> **New to this repo? Read [RUNNING.md](RUNNING.md) first** — setup, the
-> notebook, the baseline, and what to do when something breaks.
->
-> Once `python test.py` passes:
->
-> ```bash
-> head -5 data/practice_labels.csv     # the shape your labels.csv needs
-> ```
->
-> Then open `takemeter.ipynb` **in this folder** — in VS Code, or with
-> `jupyter notebook` if you prefer. Pick the kernel: the `.venv` inside this
-> project. Run section 1, which reports the hardware you'll be training on.
-> Everything else waits until you have data.
->
-> Nothing to upload, nothing to connect, no accounts and no keys. The notebook
-> runs on your machine and writes next to your code.
->
-> **The rest of this file is your submission.** Fill it in as you go.
+A classifier for public Hacker News comments about AI and software careers.
 
----
-
-<!-- ─────────────────────────────────────────────────────────────────────────
-     HOW TO USE THIS FILE
-
-     Unit 5 asks for the first five sections. Unit 6 adds the five below them.
-
-     Everything is pasted as TEXT. No screenshots, no images.
-
-     ⚠️ The confusion matrix especially. The notebook prints one as a markdown
-     table, ready to copy. A screenshot of a matrix earns nothing. Paste the
-     table.
-     ───────────────────────────────────────────────────────────────────────── -->
-
-<!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
+See [RUNNING.md](RUNNING.md) for setup instructions. Run `takemeter.ipynb` from the project folder using the project's `.venv` kernel.
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
+TakeMeter classifies comments into four categories: `personal_experience`, `advice`, `opinion`, and `question`. These labels describe the comment's main purpose, rather than its quality or truthfulness.
 
-
-
----
+The dataset contains 283 public Hacker News comments. The initial trained model predicts only `opinion`, so it does not yet successfully distinguish the four categories.
 
 ## Label Taxonomy
-
-This classifier sorts Hacker News comments about AI and software careers into four categories based on their primary purpose.
 
 ### personal_experience
 
 **Definition:** Primarily describes the author's own work history, circumstances, feelings, or career plans without primarily requesting an answer or recommending an action.
 
-**Example 1:** A junior developer describes their pay, recruiter emails, and interest in starting a business.
-Source: https://news.ycombinator.com/item?id=50090218
-
-**Example 2:** A hardware professional describes considering alternative careers involving horses, cats, or cooking.
-Source: https://news.ycombinator.com/item?id=50093377
+- **Example 1:** A junior developer describes their pay, recruiter emails, and interest in starting a business.  
+  Source: https://news.ycombinator.com/item?id=50090218
+- **Example 2:** A hardware professional describes considering careers involving horses, cats, or cooking.  
+  Source: https://news.ycombinator.com/item?id=50093377
 
 ### advice
 
 **Definition:** Primarily recommends a specific action or approach that another person could take.
 
-**Example 1:** A commenter recommends moving toward managing coding agents rather than leaving software engineering.
-Source: https://news.ycombinator.com/item?id=50085446
-
-**Example 2:** A commenter recommends waiting to see how AI affects employment instead of reacting immediately.
-Source: https://news.ycombinator.com/item?id=50092180
+- **Example 1:** A commenter recommends managing coding agents rather than leaving software engineering.  
+  Source: https://news.ycombinator.com/item?id=50085446
+- **Example 2:** A commenter recommends waiting to see how AI affects employment instead of reacting immediately.  
+  Source: https://news.ycombinator.com/item?id=50092180
 
 ### opinion
 
 **Definition:** Primarily expresses a general judgment, prediction, explanation, or reaction rather than a personal account, recommendation, or genuine question.
 
-**Example 1:** A commenter argues that AI will create opportunities rather than eliminate software engineering jobs.
-Source: https://news.ycombinator.com/item?id=50100853
-
-**Example 2:** A commenter predicts that product owners are more likely to be displaced than software engineers.
-Source: https://news.ycombinator.com/item?id=50096360
+- **Example 1:** A commenter argues that AI will create opportunities rather than eliminate software engineering jobs.  
+  Source: https://news.ycombinator.com/item?id=50100853
+- **Example 2:** A commenter predicts that product owners are more likely to be displaced than software engineers.  
+  Source: https://news.ycombinator.com/item?id=50096360
 
 ### question
 
 **Definition:** Primarily asks for information, clarification, recommendations, or other people's experiences and genuinely expects an answer.
 
-**Example 1:** A commenter asks for practical tips based on another person's experience.
-Source: https://news.ycombinator.com/item?id=50086122
+- **Example 1:** A commenter asks for practical tips based on another person's experience.  
+  Source: https://news.ycombinator.com/item?id=50086122
+- **Example 2:** A commenter asks whether someone's company is losing customers or replacing paid tools with internal software.  
+  Source: https://news.ycombinator.com/item?id=50088007
 
-**Example 2:** A commenter asks whether someone's company is losing customers or replacing paid tools with internal software.
-Source: https://news.ycombinator.com/item?id=50088007
+The examples above are paraphrases of real comments, with links to the originals.
 
-### The hardest boundary
+### The Hardest Boundary
 
-**Which two labels:** personal_experience and advice.
+**Labels:** `personal_experience` and `advice`.
 
-**Borderline example:** The comment about considering work with horses, cats, or cooking could provide career ideas to readers, but it mainly describes the author's own plans.
+**Borderline comment:** A commenter describes considering work with horses, cats, or cooking.
+
 Source: https://news.ycombinator.com/item?id=50093377
 
-**Proposed decision rule:** A comment describing what the author has done, feels, or plans is personal_experience. It becomes advice when its main purpose explicitly recommends an action to another person. A personal example that could inspire someone is not automatically advice.
+**Decision rule:** A comment describing what the author has done, feels, or plans is `personal_experience`. It becomes `advice` when its main purpose recommends an action to another person. A personal example that could inspire someone is not automatically advice.
 
-### Rules for mixed comments
+### Rules for Mixed Comments
 
 Classify the main purpose of the author's own contribution, rather than quoted material.
 
-- A genuine request for an answer is question.
-- A recommendation directed at someone else is advice.
-- A report of the author's own circumstances or plans is personal_experience.
-- A general claim, prediction, explanation, or reaction is opinion.
+- A genuine request for an answer is `question`.
+- A recommendation directed at someone else is `advice`.
+- An account of the author's circumstances or plans is `personal_experience`.
+- A general claim, prediction, explanation, or reaction is `opinion`.
 
-If two purposes are equally central, use this tie-break order:
-question, advice, personal_experience, opinion.
+When two purposes are equally central, use this tie-break order:
 
-“I think” alone does not establish personal experience.
-A rhetorical question does not automatically receive question.
-An opinion may include evidence and reasoning.
+`question` → `advice` → `personal_experience` → `opinion`
+
+“I think” alone does not establish personal experience. A rhetorical question is not automatically a `question`. An `opinion` may include evidence and reasoning.
 
 ### AI Boundary Stress Test
 
-These eight examples were generated by AI to test the definitions.
-They are not real comments and will not enter the training dataset.
+These eight examples were generated by AI to test the definitions. They are not real comments and were excluded from the training dataset.
 
 | Generated example | Label | Reason |
 |---|---|---|
@@ -131,313 +90,254 @@ They are not real comments and will not enter the training dataset.
 | What company would hire juniors when AI can do everything? Junior hiring is finished. | opinion | Uses a rhetorical question to assert a prediction. |
 | Has your company reduced junior hiring since adopting AI? | question | Requests another person's experience. |
 
-**Clarifications from the stress test:** Personal plans differ from advice to others, genuine questions differ from rhetorical questions, and “I think” does not make a general prediction a personal experience.
+**Clarifications:** Personal plans differ from advice to others, genuine questions differ from rhetorical questions, and “I think” does not turn a general prediction into a personal experience.
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+### Sources
 
-**Where the posts came from:**
+The dataset contains public comments from six Hacker News discussion threads:
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+- https://news.ycombinator.com/item?id=50085133
+- https://news.ycombinator.com/item?id=47006513
+- https://news.ycombinator.com/item?id=48464333
+- https://news.ycombinator.com/item?id=48807651
+- https://news.ycombinator.com/item?id=48336760
+- https://news.ycombinator.com/item?id=33941868
 
-**Counts per label:**
+The unit of collection is a comment, rather than a top-level submission. Source and thread information are retained in the CSV's `note` column.
+
+Forty comments were read to develop the taxonomy. The initial collection contained 241 comments. Another 42 real comments were selected to increase minority-label representation, producing 283 comments.
+
+This is a curated sample, so its label proportions should not be interpreted as the natural distribution of comments across Hacker News.
+
+### Labeling Workflow
+
+AI suggested the labels, and I reviewed the comments.
+
+The first 20 comments were initially reserved for independent labeling, but AI subsequently supplied their labels too. They are therefore AI-assisted and do not satisfy the independent cold-label requirement. I am not claiming that an independent cold-label exercise has been completed.
+
+### Counts Used for Training
 
 | Label | Count | Share |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+|---|---:|---:|
+| personal_experience | 75 | 26.50% |
+| advice | 8 | 2.83% |
+| opinion | 181 | 63.96% |
+| question | 19 | 6.71% |
+| **Total** | **283** | **100%** |
 
-**Three hard cases**
+The dataset meets the assignment's maximum of 70% for one label. It misses my stricter acceptance target of no more than 60%.
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
+### Three Hard Cases
 
-**1.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+**1. Career plans that could sound like advice**
 
-**2.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+- **Post:** A commenter describes considering work with horses, cats, or cooking.
+- **Possible labels:** `personal_experience` or `advice`.
+- **Chosen label:** `personal_experience`.
+- **Reason:** The comment mainly describes the author's own plans rather than recommending an action to someone else.
+- **Source:** https://news.ycombinator.com/item?id=50093377
 
-**3.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+**2. A personal interaction containing a quoted prediction**
 
----
+- **Post:** A commenter reports a ChatGPT interaction and includes generated text.
+- **Possible labels:** `personal_experience` or `opinion`.
+- **Chosen label:** `personal_experience`.
+- **Reason:** The author's contribution reports an interaction. The quoted prediction is context and should not automatically determine the label.
+- **Source:** https://news.ycombinator.com/item?id=33942128
+
+This is an existing public comment containing AI output, rather than a synthetic example generated for this dataset.
+
+**3. Personal background supporting a general prediction**
+
+- **Post:** A commenter discusses prior beliefs while explaining a prediction about AI and employment.
+- **Possible labels:** `opinion` or `personal_experience`.
+- **Chosen label:** `opinion`.
+- **Reason:** The main purpose is a general explanation or prediction; the personal background supports that argument.
+- **Source:** https://news.ycombinator.com/item?id=48810243
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`
 
-**Base model:**
+| Setting | Value |
+|---|---|
+| Epochs | 3 |
+| Learning rate | 2e-5 |
+| Batch size | 16 |
+| Maximum token length | 128 |
+| Initial seed | 42 |
+| Additional seeds | 7 and 2024 |
+| Device | mps — Apple Silicon GPU |
+| PyTorch version | 2.14.1 |
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+The default training settings were retained. The label list was updated to match the four-label taxonomy.
 
-**Anything I changed from the defaults, and why:**
+Comments longer than 128 tokens are truncated. This can remove information needed to determine a longer comment's main purpose.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+### Seed-42 Split
 
+The notebook created stratified training, validation, and test splits.
 
+| Label | Train | Validation | Test |
+|---|---:|---:|---:|
+| personal_experience | 52 | 12 | 11 |
+| advice | 6 | 1 | 1 |
+| opinion | 126 | 27 | 28 |
+| question | 13 | 3 | 3 |
+| **Total** | **197** | **43** | **43** |
 
----
+Advice has only one test example, and question has three. Their scores provide limited evidence and may change sharply across splits.
+
+### Initial Test Results
+
+| Measure | Result |
+|---|---:|
+| Accuracy | 0.651 |
+| Macro F1 | 0.197 |
+| personal_experience F1 | 0.000 |
+| advice F1 | 0.000 |
+| opinion F1 | 0.789 |
+| question F1 | 0.000 |
+
+For seed 42, the most-confident third had accuracy 0.929 and the least-confident third had accuracy 0.071, with 14 comments in each group.
+
+The notebook generated:
+
+- `results.json`
+- `test_split.csv`
+- `results_three_seeds_before.json`
+
+These files are written locally. They must be committed and pushed separately.
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+### Moment 1: Designing the Taxonomy
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+**What I asked:** Help define observable labels and test difficult boundaries.
 
-**Moment 1**
+**What came back:** Four label definitions, decision rules, and eight synthetic boundary examples.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**What I adopted:** A main-purpose rule, a tie-break order, and distinctions between personal plans and advice, genuine and rhetorical questions, and personal accounts and general predictions.
 
-**Moment 2**
+The synthetic stress-test examples were excluded from training.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+### Moment 2: Labeling and Interpreting Results
 
-**Pre-labelling disclosure:**
+**What I asked:** Collect public comments, suggest labels, and help interpret the training results.
 
-<!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
+**What came back:** A source-linked labeling draft, 42 additional real comments to improve minority representation, and an explanation of the confusion matrix.
 
-     Don't fill these in during unit 5.
-     ═══════════════════════════════════════════════════════════════════ -->
+**What I did:** Reviewed the comments and recorded that the initial model predicts only opinion rather than successfully separating all four labels.
 
----
+### Pre-labeling Disclosure
+
+AI pre-labeled the dataset. Human review does not make those labels independent cold labels.
+
+AI also helped with notebook setup, Git commands, and README wording. Baseline scores, agreement results, and improvement results have not been invented or reported as completed.
 
 ## Baseline vs. Trained
 
-<!-- Both models on the same posts. `python baseline.py --trained results.json`
-     prints this table for you. -->
+The provided `baseline.py` has not yet been run. Its comparison table remains pending.
 
-| Measure | Baseline | Trained | Difference |
-|---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+No prediction made before viewing the trained results was recorded, so I cannot retrospectively claim one.
 
-**What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
-
-**What the gap actually means:**
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
-
-
-
----
+For reference, always predicting opinion gives 28/43 = 0.651 accuracy on the seed-42 test set. This matches the trained model's accuracy. This is a majority-class reference calculation, not the output of `baseline.py`.
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prints the
-     spread table; the Target and Verdict columns are yours. -->
+All three runs completed. Values below are rounded to three decimal places.
 
-| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---:|---:|---:|---:|
+| Overall accuracy | 0.651 | 0.651 | 0.651 | 0.000 |
+| Macro F1 | 0.197 | 0.197 | 0.197 | 0.000 |
+| F1 — personal_experience | 0.000 | 0.000 | 0.000 | 0.000 |
+| F1 — advice | 0.000 | 0.000 | 0.000 | 0.000 |
+| F1 — opinion | 0.789 | 0.789 | 0.789 | 0.000 |
+| F1 — question | 0.000 | 0.000 | 0.000 | 0.000 |
 
-### Confusion matrix
+The zero spread shows consistent scores across these three splits. It does not show useful four-class classification. The seed-42 confusion matrix confirms majority-only predictions, and the other seeds' scores are consistent with the same behavior.
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+### Confusion Matrix — Seed 42
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| true / predicted | personal_experience | advice | opinion | question |
+|---|---:|---:|---:|---:|
+| personal_experience | 0 | 0 | 11 | 0 |
+| advice | 0 | 0 | 1 | 0 |
+| opinion | 0 | 0 | 28 | 0 |
+| question | 0 | 0 | 3 | 0 |
 
-**My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
+**Biggest confusion:** All 11 personal_experience test comments were predicted as opinion. Zero opinion comments were predicted as personal_experience.
 
-
-
----
+Every test prediction was opinion, so the failure extends beyond one difficult label boundary.
 
 ## Verdicts and Diagnoses
 
-<!-- MET or MISSED against LAST UNIT's target. The target has to hold across
-     all three seeds, not turn up sometimes. -->
-
-| # | Criterion | Target | Verdict | How I decided |
-|---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
-
-**Diagnoses**
-
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
-
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
-
-
-
----
-
-## Agreement Report
-
-<!-- Your rate against the staff set, and every disagreement adjudicated.
-
-     Remember you labelled these 30 under the STAFF taxonomy in
-     data/staff_taxonomy.md, not your own — so every argument below is made
-     from those definitions and those decision rules. -->
-
-**Agreement rate:** ___ / 30 = ___%
-
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
-
-**Disagreements**
-
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
-
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
-
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
-
-
----
-
-## The Improvement
-
-**What I changed:**
-
-**Which diagnosis pointed at it:**
-
-### Run Log — After
+The original acceptance targets remain unchanged.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| Overall accuracy | At least 0.65 in every seed | 0.651 | 0.651 | 0.651 | MET |
+| Macro F1 | At least 0.60 in every seed | 0.197 | 0.197 | 0.197 | MISSED |
+| Every label's F1 | At least 0.50 in every seed | Minimum 0.000 | Minimum 0.000 | Minimum 0.000 | MISSED |
+| Largest dataset label | No more than 60% | 63.96% | 63.96% | 63.96% | MISSED |
+| Confidence accuracy gap | Most-confident third at least 10 percentage points above least-confident third in every seed | Approximately 85.8 pp | Pending | Pending | PENDING |
 
-**Did it help, and how do I know:**
+The confidence gap for seed 42 is calculated from the displayed rounded values: 0.929 minus 0.071. Exact values should be checked in the JSON files. Confidence results for seeds 7 and 2024 still need to be recorded.
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+Balance is a property of the whole dataset, so the same percentage applies across seeds.
 
+### Diagnosis
 
+The model learned a majority-only prediction pattern. Imbalance and small minority classes are plausible contributors: the seed-42 training set contains only six advice comments and 13 questions.
 
----
+However, these results do not prove inconsistent labeling caused the failure. The agreement exercise is still needed before making that diagnosis. Limited training and truncation are other possibilities to investigate.
+
+The accuracy target is met even though three labels have zero F1. This demonstrates why accuracy alone is insufficient.
+
+A large confidence gap also does not establish successful four-class classification. A model that always predicts opinion can still be more confident on actual opinion comments than on other comments.
+
+## Agreement Report
+
+**Pending.**
+
+The 30 staff comments must be labeled using `data/staff_taxonomy.md`, rather than my own taxonomy.
+
+No agreement rate or adjudicated disagreements have been recorded yet. This report is needed to investigate whether labeling consistency contributes to the model's failure.
+
+## The Improvement
+
+**Not yet performed.**
+
+A candidate improvement is to collect and review more genuine advice and question comments. The existing results should be preserved as the before run.
+
+For a controlled comparison, preserve the held-out test examples and prevent them from entering training. Expanding the CSV and rerunning the split would change the evaluation population, so that would need to be disclosed rather than presented as an identical-test-set comparison.
+
+Before running the improvement experiment, set:
+
+```python
+RUN_LABEL = "after"
+```
+
+Keep `results_three_seeds_before.json` unchanged. Record actual after results, whether or not the change helps.
+
+### Run Log — After
+
+Pending. No improvement run has been completed.
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
+- The model does not successfully distinguish personal experiences, advice, or questions from opinion.
+- Macro F1 and per-label F1 targets are missed.
+- Opinion represents 63.96% of the dataset, exceeding the 60% acceptance target.
+- Advice and question have very small test samples.
+- The independent cold-label requirement remains unfinished.
+- The baseline comparison and agreement exercise remain unfinished.
+- Confidence results need verification across all three seeds.
+- No improvement experiment has been completed.
 
+**The gap between what I meant my labels to capture and what the model learned:**
 
-
-**The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
-
-
-
-<!-- ═════════════════════════════════════════════════════════════════════
-
-     SUBMISSION CHECKLIST — unit 5
-
-       [ ] criteria.md has five numbered criteria, each naming a NUMBER
-       [ ] Each has a reason underneath tied to your data or taxonomy
-       [ ] labels.csv: at least 150 rows, text/label/note, ONE file not split
-       [ ] No label above 70%
-       [ ] All five unit 5 sections have real content
-       [ ] Label Taxonomy includes the decision rule for your hardest boundary
-       [ ] The Dataset includes three hard cases
-       [ ] results.json and test_split.csv committed (the notebook does this)
-       [ ] At least four new commits
-       [ ] Repository URL submitted — WRITE IT DOWN
-
-     SUBMISSION CHECKLIST — unit 6
-
-       [ ] Baseline vs. Trained table, with your prediction written beforehand
-       [ ] Run Log — Before, five criteria across three seeds
-       [ ] Confusion matrix TYPED AS A MARKDOWN TABLE
-       [ ] A verdict on every criterion
-       [ ] A diagnosis for every miss, using the agreement report as evidence
-       [ ] Agreement Report with every disagreement adjudicated
-       [ ] One improvement, with Run Log — After
-       [ ] What's Still Broken
-       [ ] results_three_seeds_before.json, results_three_seeds_after.json,
-           baseline_results.json and
-           agreement_results.json committed
-       [ ] At least four new commits
-       [ ] The SAME repository URL as last unit
-
-     Do not delete and recreate this repository.
-     ═════════════════════════════════════════════════════════════════════ -->
-
----
-
-📖 **How to run this project: [RUNNING.md](RUNNING.md)**
+The taxonomy describes four different purposes of a comment, while the seed-42 model assigns every test comment to opinion. Its 65.1% accuracy reflects the proportion of opinion comments in that split rather than successful separation of the four purposes.
