@@ -5,6 +5,7 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+personal_experience: Primarily describes the author's own work history, circumstances, feelings, or career plans without primarily requesting an answer or recommending an action.
+advice: Primarily recommends a specific action or approach another person could take.
+opinion: Primarily expresses a general judgment, prediction, explanation, or reaction rather than a personal account, recommendation, or genuine question.
+question: Primarily requests information, clarification, recommendations, or other people's experiences and genuinely expects an answer.
