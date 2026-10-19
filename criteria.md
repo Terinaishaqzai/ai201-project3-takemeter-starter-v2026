@@ -51,61 +51,39 @@ whether you hit them:
 
 ---
 
-## 1.
+# Acceptance criteria — TakeMeter
 
-<!-- Your criterion. It must name a number. -->
+These targets are recorded before training. Model-performance targets must hold across all three seeds in Unit 6: 42, 7, and 2024.
 
+## 1. Overall accuracy
 
+The classifier achieves at least 65% accuracy on the held-out test set.
 
-**Why this target:**
+**Why this target:** The four labels distinguish the purpose of comments about AI and software careers. I want roughly two-thirds of predictions to be correct despite comments that combine personal experiences, advice, opinions, and questions.
 
+## 2. Macro F1
 
+The classifier achieves a macro F1 score of at least 0.60 on the held-out test set.
 
----
+**Why this target:** Macro F1 gives each label equal weight. This helps check whether performance extends beyond whichever category appears most frequently.
 
-## 2.
+## 3. Minimum per-label performance
 
-<!-- Your criterion. -->
+Every label achieves an F1 score of at least 0.50 on the held-out test set.
 
+**Why this target:** The classifier should provide useful predictions for all four categories. This minimum allows for difficult boundaries and small test samples while preventing a completely neglected label from being hidden by the overall score.
 
+## 4. Dataset balance
 
-**Why this target:**
+No label represents more than 60% of the final labeled dataset.
 
+**Why this target:** General opinions may be common in discussions about AI and employment. A 60% limit is stricter than the assignment's 70% maximum and leaves more room for the other categories. If necessary, I will collect additional real examples rather than change correct labels.
 
+## 5. Prediction confidence
 
----
+On the held-out test set, accuracy for the most confident third of predictions exceeds accuracy for the least confident third by at least 10 percentage points.
 
-## 3.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 5.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
+**Why this target:** Confidence could help prioritize uncertain comments for human review. A measurable accuracy gap would indicate that the model's confidence helps distinguish more reliable predictions from less reliable ones.
 
 
 
