@@ -301,11 +301,13 @@ A large confidence gap also does not establish successful four-class classificat
 
 ## Agreement Report
 
-**Pending.**
+The agreement script compared all 30 staff posts: 30 agreed and 0 disagreed, giving 100% agreement. There were no disagreements to adjudicate or sort into categories (a), (b), and (c).
 
-The 30 staff comments must be labeled using `data/staff_taxonomy.md`, rather than my own taxonomy.
+AI suggested my labels before the staff answer key was provided. This was an AI-assisted exercise, not independent labeling, so the perfect agreement does not establish my unaided consistency or prove that my project dataset is consistently labeled.
 
-No agreement rate or adjudicated disagreements have been recorded yet. This report is needed to investigate whether labeling consistency contributes to the model's failure.
+The staff set includes ambiguous cases involving decorative statistics and immediate personal reactions. The suggested labels matched staff on those cases, but that does not establish that the rules are unambiguous.
+
+
 
 ## The Improvement
 
