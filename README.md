@@ -307,38 +307,94 @@ AI suggested my labels before the staff answer key was provided. This was an AI-
 
 The staff set includes ambiguous cases involving decorative statistics and immediate personal reactions. The suggested labels matched staff on those cases, but that does not establish that the rules are unambiguous.
 
-
-
 ## The Improvement
 
-**Not yet performed.**
+I changed one training setting: epochs increased from 3 to 6.
+The dataset, label definitions, model, learning rate, batch size,
+maximum token length, and seeds stayed unchanged.
 
-A candidate improvement is to collect and review more genuine advice and question comments. The existing results should be preserved as the before run.
+Validation loss was still decreasing at epoch 3, while the model
+predicted only opinion. I tested whether more training would help
+it distinguish the categories. This was a hypothesis, not proof
+that insufficient training was the only cause.
 
-For a controlled comparison, preserve the held-out test examples and prevent them from entering training. Expanding the CSV and rerunning the split would change the evaluation population, so that would need to be disclosed rather than presented as an identical-test-set comparison.
-
-Before running the improvement experiment, set:
-
-```python
-RUN_LABEL = "after"
-```
-
-Keep `results_three_seeds_before.json` unchanged. Record actual after results, whether or not the change helps.
+Both experiments ran on Apple Silicon GPU (MPS). With the dataset
+and splitting code unchanged, the same seeds reproduce the same
+splits for the before and after comparison.
 
 ### Run Log — After
 
-Pending. No improvement run has been completed.
+Each model-performance target must hold across all three seeds.
+
+| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
+|---|---|---|---|---|---|
+| Overall accuracy | ≥ 0.65 | 0.837 | 0.767 | 0.767 | MET |
+| Macro F1 | ≥ 0.60 | 0.424 | 0.380 | 0.378 | MISSED |
+| Every label's F1 | ≥ 0.50 | Minimum 0.000 | Minimum 0.000 | Minimum 0.000 | MISSED |
+| Largest dataset label | ≤ 60% | 63.96% | 63.96% | 63.96% | MISSED |
+| Confidence accuracy gap | ≥ 10 percentage points | 28.57 pp | 21.43 pp | 28.57 pp | MET |
+
+### Before and After
+
+| Measure | Before 42 | After 42 | Before 7 | After 7 | Before 2024 | After 2024 |
+|---|---:|---:|---:|---:|---:|---:|
+| Accuracy | 0.651 | 0.837 | 0.651 | 0.767 | 0.651 | 0.767 |
+| Macro F1 | 0.197 | 0.424 | 0.197 | 0.380 | 0.197 | 0.378 |
+| personal_experience F1 | 0.000 | 0.783 | 0.000 | 0.667 | 0.000 | 0.667 |
+| advice F1 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| opinion F1 | 0.789 | 0.915 | 0.789 | 0.852 | 0.789 | 0.844 |
+| question F1 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+Mean accuracy increased from 0.651 to 0.791, and mean macro F1
+increased from 0.197 to 0.394. After-run accuracy varied by
+6.98 percentage points across seeds.
+
+The change helped: the model began recognizing personal experiences
+and improved opinion F1 across every seed. However, it still never
+predicted advice or question, so the macro F1 and minimum per-label
+targets remain missed. The five criterion verdicts did not change.
+
+### Confusion Matrix — After, Seed 42
+
+| true / predicted | personal_experience | advice | opinion | question |
+|---|---:|---:|---:|---:|
+| personal_experience | 9 | 0 | 2 | 0 |
+| advice | 0 | 0 | 1 | 0 |
+| opinion | 1 | 0 | 27 | 0 |
+| question | 2 | 0 | 1 | 0 |
+
+The largest off-diagonal count is tied: two personal_experience
+comments were called opinion, and two question comments were called
+personal_experience. Before the change, all 11 personal_experience
+comments were called opinion.
 
 ## What's Still Broken
 
-- The model does not successfully distinguish personal experiences, advice, or questions from opinion.
-- Macro F1 and per-label F1 targets are missed.
-- Opinion represents 63.96% of the dataset, exceeding the 60% acceptance target.
-- Advice and question have very small test samples.
-- The independent cold-label requirement remains unfinished.
-- The baseline comparison and agreement exercise remain unfinished.
-- Confidence results need verification across all three seeds.
-- No improvement experiment has been completed.
+- Macro F1 remains below 0.60 in every seed. More training helped
+  two categories but did not produce useful four-category coverage.
+  My next experiment would add carefully reviewed real examples
+  of the smallest category, advice.
+- The minimum per-label F1 target remains missed because advice
+  and question have zero F1 in all three seeds. There are only
+  eight advice examples and 19 questions in the whole dataset.
+  Small classes are a plausible contributor, but the experiment
+  does not establish the sole cause.
+- Opinion still represents 63.96% of the dataset, exceeding the
+  60% target. Additional minority-label examples would address
+  this without changing correctly assigned labels.
+- The AI-assisted staff exercise does not establish my independent
+  labeling consistency. An unaided review on a fresh set would
+  provide stronger evidence.
+
+I stopped after the planned three-seed experiment to keep this
+comparison focused on one change. Data collection and an independent
+labeling check remain future work.
+
+The taxonomy is intended to distinguish four purposes of a comment,
+but the improved model only predicts personal_experience and opinion.
+The confusion matrices show progress beyond majority-only prediction,
+while advice and question remain unrecognized.
+
 
 **The gap between what I meant my labels to capture and what the model learned:**
 
