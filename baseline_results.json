@@ -1,0 +1,255 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 43,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 43,
+    "accuracy": 0.6511627906976745,
+    "f1_macro": 0.1971830985915493,
+    "per_label": {
+      "advice": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 1
+      },
+      "opinion": {
+        "precision": 0.6511627906976745,
+        "recall": 1.0,
+        "f1": 0.7887323943661972,
+        "support": 28
+      },
+      "personal_experience": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 11
+      },
+      "question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "CPI functions to obscure disproportionate price increases in essentials by lumping them in with cheapening commodities (e.g. electronics) that have a high demand elasticity. It's as much a choice to to use CPI to come to the conclusion things are fine, as it would be picking \"arbitrary items\" such as the essentials: food, shelter, medical care, and transportation that would paint a picture distinctly less fine.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Exactly. I work on line of business stuff, not curing world hunger or reinventing the train. One of the few sources of joy in the job is the brain teaser/puzzle of understanding clever bits of code and writing it too. Now you can just shit out massive volumes of basic code that does the job, which is all you really need for a standard corporate software product, and it can do it multiple times faster than I can so I have no choice but to use it. Well at least my shares are looking good.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I\u2019m close to despondent about how my job has changed. If the next 15 years of my life is just waiting on LLMs, I don\u2019t think I can do it.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "i'm a junior (a little over 3 yrs xp, some might consider that low senior), and never experienced pre-2023 job market, so i don't really have much to compare the market over the last couple years to. fortunately i had 1-2 years where I didn't use much ai. i don't see my company laying me off in the foreseeable future, but I don't have great pay either. over the last few months i've been getting a few recruiter emails every month, sometimes every week. about 50% are not very applicable to my experience\nai or not, i've always wanted to start my own business, and ai likely will make that easier (maybe)",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I've always loved animals, and I would love to quit and own a farm where I breed and care for horses. I also like cats a lot I could see myself working as a cat therapist. My children tell me I am a very good cook too and should start a business selling crepes for breakfast.\nNone of these ideas are as lucrative as writing SW. I'm not technically trained as a SWE though I do write it, I'm a hardware person.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "This is a superficial complaint. In practice, the US doles out enormous amounts of social assistance. Disability, social security, and healthcare are an enormous part of the federal budget. Maybe it will be gated behind make-work or some other scheme.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Median is also up:\nMedian weekly earnings of the nation's 121.0 million full-time wage and salary workers were $1,235 in the first quarter of 2026 (not seasonally adjusted), the U.S. Bureau of Labor Statistics reported today. This was 3.4 percent higher than a year earlier, compared with a gain of 2.7 percent in the Consumer Price Index for All Urban Consumers (CPI-U) over the same period. \nhttps://www.bls.gov/news.release/pdf/wkyeng.pdf",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "You're just adding the temperatures, you then need to divide by 2 to get the average - so it's actually 51.35 fahrenheit (10.75 celsius).",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Some stereotypes are a useful description of reality. You\u2019ve gotta pick your battles.\nIn the US, 87.3% of nurses are female and 92.3% of truckers are male.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "As long as LLMs don't understand the different between regurgitating facts and making up stories, they're going to necessarily be limited.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I just skimmed this and the so called zeitgeist here is fear. People are scared, it's material concern and he effectively stoked it.\nI work on this technology for my job and while I'm very bullish pieces like that are as you said slopish and as I'll say breathless because there are so many practical challenges here to deal with standing between what is being said there and where we are now.\nCapability is not evenly distributed and it's getting people into loopy ideas of just how close we are to certain milestones, not that it's wrong to think about those potential milestones but I'm wary of timelines.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "The USA would rather pay half the population to dig holes and the other half to fill them in, than simply provide a basic standard of living for all.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Healthcare is a huge sink if you have the income to afford it . People will spend hundreds of thousands of dollars on various protocols to look younger, beat aging, and so on.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "you will not land job as plumber or HVAC without pi\u00f3r experience or similar experience. People shun software developers at once im because THEY KNOW that you simply don't fit as typical candidate.\nAlso: people doesn't want to hire someone who got 'better' education than them... :/",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "In my humble opinion, Mike Acton's talks are the best introduction, although he doesn't use the term \"first principles\", and they seem - at the surface - to be about game engines, but they are generalizable to everything.\nData Oriented Design (2014):\nhttps://www.youtube.com/watch?v=rX0ItVEVjHc\nSolving the Right Problems (2017):\nhttps://www.youtube.com/watch?v=4B00hV3wmMY",
+      "gold": "advice",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Similar to LLM smells in writing, anyone that blogs about Reddit comments to make broad extrapolations about society or psychology or anything really\u2026I just write it off as slop.\nThey\u2019re low effort takes from terminally online weirdos.  The number of upvotes something gets is meaningless.  Using it as some kind of appeal to authority or credibility on a topic is a joke.\nLike those SEO slop gaming articles about \u201ccontroversies\u201d because some anonymous account on Reddit complained that a character got race swapped or something.\nThis crap gets pulled into Google search results and gets repeated as truth by Gemini when it does a web search.\nIt\u2019s gross.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "For about 20 years now I\u2019ve been working the least amount possible to get the life I want.\nI snowboard over 100 days a year, spend tons of time with my daughter, walk, write, camp and cook lots of great food.\nYou\u2019d be shocked how good life can be on ~$20k a year. And you really don\u2019t have to work much to earn that!",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I think the core disconnect here is that, to some degree, people have a hard time conceptualizing the difference between needing a job and wanting a job.\nI can tell you, freely, that if someone dropped $10m in my lap, I would not stop programming - I started before I was paid, and I will continue as long as my input methods, perception, and/or brain permit.\nThe difference is in the quality, texture, and structure of \nhow\n you work, and of course \nwhat\n you work on. I almost certainly would be working in the structure of larger organizations.\nThere is some interesting post-scarcity fiction out there, speculative and otherwise, that tries to answer the question \"what do we do when we are no longer required to work for pay\". Manfred Macx would say that it's great fun to make other people incalculably wealthy. Or, you could simply be kind and generous with your time in service to causes you like.\nFrankly, if someone dropped $10m in my lap, I'd almost certainly take 2-3 months sitting on the beach, but after that, I'd try something even more ambitious. Surely there are hard problems we could be solving that we're constrained by paid work from pursuing.\nI'd probably also expand my hobby practices - there's lots I could do with better tooling and toys (my pottery studio could use a pugmill!), and discover new ones as well.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": ">I just don't understand people working on improving ai. It just isn't worth the risk.\nA cynical/accelerationist perspective would be: it enables you to rake in huge amounts of money, so no matter what comes next, you will be set up to endure it better than most.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Our codebase is well over 250k and we have a hierarchy of notes for the modules so we read as much as we need for the job with a base memory that explains how the notes work",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I couldn't agree more. I always thought that when AGI is achieved, it will change the fundamental paradigms of the economy, whether capitalist or communist. For example, Marx considers that value comes from human labor, according to the theory of value-labor (modifying nature, creating goods and services through intelligence in a conscious and deliberate manner).\nIf an AGI replaces the human and can create value-labor, all of these theories will become false, paving the way for a new era, hope based on solidarity and equality of humanity with a new abundance of resources and better distribution.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "It's quite frustrating that they track average rather than median wages. As wealth inequality increases, average will be less and less representative of worker health.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I'm not sure what you're trying to imply with this link? As the first line of this article says, Silicon Valley Bank failed. The shareholders were wiped out. (Some people got confused because the Twitter conversation was primarily driven by rich VCs and founders who were depositors of the bank, quite reasonably arguing that they should get their money back if at all possible.)",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "What factor of increased productivity will lead to reduced need for programmers?\nI have seen numerous 25-50% productivity boosts over my career. Not a single one of them reduced the overall need for programmers.\nI can\u2019t even think of one that reduced the absolute number of programmers in a specific field.",
+      "gold": "question",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I want a job because I need to pay the bills, as you said. But also, I \nlike\n my job. It is a big part of my life, and I truly love what I do. Moreover, this is the one job skill I have, so if this career dies I'll have to resort to manual labor and the like. My job going away is an extremely unpleasant prospect for many reasons.\n> But of course if we automated those jobs with AI, we could direct AI produced value into universal basic income so people wouldn't lose their income.\nThere isn't the \nremotest possible chance\n that this would happen. Any surplus (if indeed one exists, which isn't certain) would be pocketed by the mega rich who own the corporations.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I get the feeling the vast number of people already in a manager role (who are not techincally grounded) will not be able to understand the benefit of allowing SWEs to step into that role, as opposed to taking on that role themselves.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "What would cause an increase in the number of open lower paid and/or service industry jobs while simultaneously reducing the number of openings in tech?",
+      "gold": "question",
+      "predicted": "opinion"
+    },
+    {
+      "text": "> Well, I am in my 70s so job security is not really anything I think about.\nMany of us are not 70, so we have to be concerned about this. You seem gleeful, I\u2019m concerned. Concerned for everyone about to lose their job, concerned for the pay drop those that don\u2019t lose them will see. All around I see this as a bad idea but then people like you come in and push it forward.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I operate in a bit of a niche, in terms of my clients. They're all typically people I've worked for full time in the past, or closely related. There are some fundamentals of that business I worry about, but I'm able to do things they can't, and I'm looking alright for the year. That's as good as I can generally wish for.\nLonger term, I don't know. I'd happily take something more secure if it came along, as long as it's not childminding for an agent. Super busy and bored out my mind the last few weeks, the worst sort of work.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Yup. And provided you\u2019re a newcomer, the path to becoming able to provide that expert opinion involves years of performing precisely the tasks that AI is getting rid of.\nMy guess is that we\u2019ll eventually see some kind of \u201chigher degree bootcamps\u201d that accept people with junior baseline skills and take them to the senior level, since learning on the job might become less feasible.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "key point, those 6 figures SWEs earn, they would spend to \"local non SWE\" economy.\nyour local datacenter does not care about local chickens or eggs, or private tutor, or pretty much anything at all. not even energy, it is has its own nucleaer reactor nearby. it is one-way economy from now on. you are only a consumer, not a producer. there is virtually nothing you (nor average joe) can provide that \"datacenter\" needs.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "We have built our team around \nnot\n needing team visibility. We're 5 developers working on 7 products used by 5 different companies.\nI *don't* want to have to know what others are doing nor how. This may work on teams that work on a narrower scope and lower rhythms, cannot work for us.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "UBI can also be a backstop against deflation, can't it? If no one has income, it doesn't matter if bread costs $1 per loaf instead of $3-5 now - no one will be able to afford even $1 eventually, after they've sold their house at a loss, sold their car, sold their laptop, iphone, etc.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "They are taught the difference through reinforcement learning with verifiable rewards. Pretending you've solved the task or making up a story about how you solved it won't do well in that training step.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "This is what they get for not reading our antislop paper (ICLR 2026) and using our anti-slopped sampler/models, or Kimi (which is remarkable relatively non sloppy)\nhttps://arxiv.org/abs/2510.15061\nI thought normies would have caught onto the EM dash, overuse of semicolons, overuse of fancy quotes, lack of exclamation marks, \"It's not X, it's Y\", etc. Clearly I was wrong.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "Or just maybe it\u2019s heavily economic. Yea there are many people with lots of money who are anxious about being rendered unneeded, but can we talk for a minute about all the people trying really hard to save who are needing to rent at market rates, or maybe they have a mortgage and desperately need their current income in order to not lose their home? Let alone that the people more likely to be replaced are those paid the least!",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "OP did not say anything about skilled workers who make things with their hands. You are describing an artisan or craftsman, or at the very least a tradesman.\nThe quote is talking about manufacturing labor. This is the guy on the assembly line who lowers the press, makes his thousandth widget for a day, and then lifts it up. Rinse and repeat.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I think the process is already ongoing for the juniors and new graduates? Now, speaking as a senior, a quite mediocre one, I wouldn\u2019t be surprised if I can never find a similar job if I\u2019m laid off.",
+      "gold": "personal_experience",
+      "predicted": "opinion"
+    },
+    {
+      "text": "I guess I'm not sure why you'd expect it to be any different than the dotcom bubble, when this didn't really happen. \"Too big to fail\" is a thing in finance because of contagion factors that don't really apply to tech; there's no number of AI company bankruptcies that would force your bank to suspend withdrawals.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "shelter isn't just a cherry picked item.  It's by an far the largest spending category, that and healthcare.  I couldn't care less about all the other categories, personally.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "It\u2019s no longer true that AI tools primarily get knowledge from their pre-training input data. That gives them a baseline, but nowadays AI chatbots and coding agents routinely assume they need to get up-to-date information in other ways, via web searches and other tool calling.\nSo I don\u2019t see accuracy declining at least for programming.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": ">shelter isn't just a cherry picked item. It's by an far the largest spending category, that and healthcare.\nThe BLS agrees. That's why \"shelter\" is weighted 35.6% in the CPI basket, by far the biggest item.\n> I couldn't care less about all the other categories, personally.\nIf we're going by what people \"care\" about (whatever that means), the basket would probably be like 70% gas prices, 20% grocery prices, and 10% for everything else. Empirically speaking, those two are far more salient politically than housing.",
+      "gold": "opinion",
+      "predicted": "opinion"
+    },
+    {
+      "text": "> something that I've encountered at my company already.\nOn the receiving end, as in losing customers to this? Or is your company replacing tools they used to pay for?\nI'm very interested in how other places are handling this.",
+      "gold": "question",
+      "predicted": "opinion"
+    }
+  ]
+}
